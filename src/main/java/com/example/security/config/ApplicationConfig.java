@@ -1,6 +1,6 @@
-package com.example.security.sec1.config;
+package com.example.security.config;
 
-import com.example.security.sec1.repositories.UserRepository;
+import com.example.security.repositories.UserRepository;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

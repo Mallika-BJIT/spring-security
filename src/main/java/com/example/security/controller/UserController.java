@@ -1,8 +1,8 @@
-package com.example.security.sec1.controller;
+package com.example.security.controller;
 
-import com.example.security.sec1.model.*;
-import com.example.security.sec1.service.AuthenticationService;
-import com.example.security.sec1.service.FeaturePermissionService;
+import com.example.security.model.*;
+import com.example.security.service.AuthenticationService;
+import com.example.security.service.FeaturePermissionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

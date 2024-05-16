@@ -1,7 +1,7 @@
-package com.example.security.sec1.config;
+package com.example.security.config;
 
-import com.example.security.sec1.repositories.UserRepository;
-import com.example.security.sec1.security.JwtTokenFilter;
+import com.example.security.repositories.UserRepository;
+import com.example.security.security.JwtTokenFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

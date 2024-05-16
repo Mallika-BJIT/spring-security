@@ -1,6 +1,6 @@
-package com.example.security.sec1.auth;
+package com.example.security.auth;
 
-import com.example.security.sec1.model.User;
+import com.example.security.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -1,6 +1,6 @@
-package com.example.security.sec1.repositories;
+package com.example.security.repositories;
 
-import com.example.security.sec1.model.Feature;
+import com.example.security.model.Feature;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

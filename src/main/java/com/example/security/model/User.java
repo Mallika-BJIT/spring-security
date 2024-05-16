@@ -1,4 +1,4 @@
-package com.example.security.sec1.model;
+package com.example.security.model;
 
 import jakarta.persistence.*;
 import lombok.*;

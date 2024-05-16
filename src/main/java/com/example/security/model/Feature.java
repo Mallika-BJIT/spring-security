@@ -1,23 +1,22 @@
-package com.example.security.sec1.model;
+package com.example.security.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
 
-@Builder
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Permission {
+public class Feature {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique=true)
-    private String permissionName;
+    private String featureName;
 
-    @OneToMany(mappedBy = "permission")
+    @OneToMany(mappedBy = "feature")
     private List<UserFeaturePermission> userFeaturePermissionList;
 }

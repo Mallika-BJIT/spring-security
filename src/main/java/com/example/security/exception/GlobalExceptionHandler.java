@@ -1,4 +1,4 @@
-package com.example.security.sec1.exception;
+package com.example.security.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

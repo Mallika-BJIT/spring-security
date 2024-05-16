@@ -1,13 +1,13 @@
-package com.example.security.sec1.service;
+package com.example.security.service;
 
-import com.example.security.sec1.auth.JWTUtils;
-import com.example.security.sec1.controller.UserController;
-import com.example.security.sec1.exception.CustomException;
-import com.example.security.sec1.model.*;
-import com.example.security.sec1.repositories.FeatureRepository;
-import com.example.security.sec1.repositories.PermissionRepository;
-import com.example.security.sec1.repositories.UserFeaturePermissionRepository;
-import com.example.security.sec1.repositories.UserRepository;
+import com.example.security.auth.JWTUtils;
+import com.example.security.controller.UserController;
+import com.example.security.exception.CustomException;
+import com.example.security.model.*;
+import com.example.security.repositories.FeatureRepository;
+import com.example.security.repositories.PermissionRepository;
+import com.example.security.repositories.UserFeaturePermissionRepository;
+import com.example.security.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

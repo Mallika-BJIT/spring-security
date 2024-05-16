@@ -1,6 +1,6 @@
-package com.example.security.sec1.repositories;
+package com.example.security.repositories;
 
-import com.example.security.sec1.model.Permission;
+import com.example.security.model.Permission;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

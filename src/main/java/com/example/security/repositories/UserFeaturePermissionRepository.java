@@ -1,7 +1,7 @@
-package com.example.security.sec1.repositories;
+package com.example.security.repositories;
 
-import com.example.security.sec1.model.UserFeaturePermission;
-import com.example.security.sec1.model.UserFeaturePermissionId;
+import com.example.security.model.UserFeaturePermission;
+import com.example.security.model.UserFeaturePermissionId;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

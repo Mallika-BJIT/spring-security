@@ -1,6 +1,6 @@
-package com.example.security.sec1.security;
+package com.example.security.security;
 
-import com.example.security.sec1.auth.JWTUtils;
+import com.example.security.auth.JWTUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

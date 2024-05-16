@@ -1,6 +1,6 @@
 package com.example.security;
 
-import com.example.security.sec1.service.FeaturePermissionService;
+import com.example.security.service.FeaturePermissionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
