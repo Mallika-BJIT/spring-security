@@ -1,8 +1,12 @@
 package com.example.security.controller;
 
+import com.example.security.dto.request.AuthenticationDTO;
+import com.example.security.dto.request.RoleAssignDTO;
+import com.example.security.dto.request.RoleDTO;
 import com.example.security.model.*;
 import com.example.security.service.AuthenticationService;
-import com.example.security.service.FeaturePermissionService;
+import com.example.security.service.RoleService;
+import com.example.security.service.UserPermissionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -11,11 +15,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/user/v1")
 @RequiredArgsConstructor
 public class UserController {
-    private final AuthenticationService authenticationService;
-    private final FeaturePermissionService featurePermissionService;
     private Logger log = LoggerFactory.getLogger(UserController.class);
+
+    private final AuthenticationService authenticationService;
+    private final UserPermissionService userPermissionService;
+    private final RoleService roleService;
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody User user) {
@@ -28,14 +35,14 @@ public class UserController {
         return ResponseEntity.ok(authenticationService.login(authenticationDTO));
     }
 
-    @PostMapping("/permission")
-    public ResponseEntity<String> createPermission(@Valid @RequestBody PermissionDTO permissionDTO) {
-        return ResponseEntity.ok(featurePermissionService.createPermission(permissionDTO));
+    @PostMapping("/role")
+    public ResponseEntity<Object> CreateRole(@Valid @RequestBody RoleDTO roleDTO) {
+        return ResponseEntity.ok(roleService.createRole(roleDTO));
     }
 
-    @PutMapping("/feature-permission")
-    public ResponseEntity<Object> updateFeaturePermission(@RequestBody FeaturePermissionDTO featurePermissionDTO) {
+    @PutMapping("/user-role")
+    public ResponseEntity<Object> updateUserPermission(@Valid @RequestBody RoleAssignDTO roleAssignDTO) {
         log.info("update permission of a user");
-        return ResponseEntity.ok(featurePermissionService.updatePermission(featurePermissionDTO));
+        return ResponseEntity.ok(userPermissionService.updatePermission(roleAssignDTO));
     }
 }

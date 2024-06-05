@@ -2,11 +2,11 @@ package com.example.security.service;
 
 import com.example.security.auth.JWTUtils;
 import com.example.security.controller.UserController;
+import com.example.security.dto.request.AuthenticationDTO;
 import com.example.security.exception.CustomException;
 import com.example.security.model.*;
-import com.example.security.repositories.FeatureRepository;
+import com.example.security.repositories.RoleRepository;
 import com.example.security.repositories.PermissionRepository;
-import com.example.security.repositories.UserFeaturePermissionRepository;
 import com.example.security.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -26,14 +26,15 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
+    private Logger log = LoggerFactory.getLogger(AuthenticationService.class);
+
     private final PermissionRepository permissionRepository;
-    private Logger log = LoggerFactory.getLogger(UserController.class);
     private final AuthenticationManager authenticationManager;
     private final JWTUtils jwtUtils;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private final FeatureRepository featureRepository;
+    private final RoleRepository featureRepository;
 
 
     public String login(AuthenticationDTO authenticationDTO) {
@@ -57,26 +58,20 @@ public class AuthenticationService {
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        if (!ObjectUtils.isEmpty(user.getUserFeaturePermissions())) {
-            List<UserFeaturePermission> userFeaturePermissionList = new ArrayList<>();
+        if (!ObjectUtils.isEmpty(user.getRoles())) {
+            List<Role> roleList = new ArrayList<>();
 
-            for (UserFeaturePermission userFeaturePermission : user.getUserFeaturePermissions()) {
-                Optional<Feature> feature = featureRepository.findByFeatureName(
-                        userFeaturePermission.getFeature().getFeatureName());
+            for (Role role : user.getRoles()) {
+                Optional<Role> tmpRole = featureRepository.findByRoleName(role.getRoleName());
 
-                Optional<Permission> permission = permissionRepository.findByPermissionName(
-                        userFeaturePermission.getPermission().getPermissionName());
-
-                if (feature.isEmpty() || permission.isEmpty()) {
-                    // log.error("{} not exists", userFeaturePermission.getFeature().getFeatureName());
-                    throw new CustomException("user registration failed", HttpStatus.BAD_REQUEST);
+                if (tmpRole.isEmpty()) {
+                    log.error("Role {} not exists", role.getRoleName());
+                    throw new CustomException("Role not exists", HttpStatus.BAD_REQUEST);
                 }
+                roleList.add(tmpRole.get());
                 //permission check
-                userFeaturePermission.setId(new UserFeaturePermissionId());
-                userFeaturePermission.setFeature(feature.get());
-                userFeaturePermission.setPermission(permission.get());
-                userFeaturePermission.setUser(user);
             }
+            user.setRoles(roleList);
         }
         userRepository.save(user);
 

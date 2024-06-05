@@ -1,13 +1,12 @@
 package com.example.security.config;
 
 import com.example.security.repositories.UserRepository;
-import com.example.security.security.JwtTokenFilter;
+import com.example.security.security.AuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,7 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 @EnableMethodSecurity
 public class SecurityConfig {
-    private final JwtTokenFilter jwtTokenFilter;
+    private final AuthorizationFilter authorizationFilter;
     private final UserRepository userRepository;
 
     @Bean
@@ -36,18 +35,16 @@ public class SecurityConfig {
                 //.addFilterAfter(new CsrfTokenResponseHeaderBindingFilter(), CsrfFilter.class);
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                                .requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/permission").hasRole("F1CREATE")
-                                .requestMatchers(HttpMethod.PUT, "/feature-permission").hasRole("F1UPDATE")
-                                .requestMatchers("/v3/api-docs/**",
-                                        "/configuration/ui",
-                                        "/swagger-resources/**",
-                                        "/configuration/security",
-                                        "/swagger-ui/**",
-                                        "/webjars/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()
+                        .requestMatchers("/v3/api-docs/**",
+                                "/configuration/ui",
+                                "/swagger-resources/**",
+                                "/configuration/security",
+                                "/swagger-ui/**",
+                                "/webjars/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 

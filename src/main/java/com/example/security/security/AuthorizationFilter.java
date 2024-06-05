@@ -6,6 +6,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -15,7 +17,7 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-public class JwtTokenFilter extends OncePerRequestFilter {
+public class AuthorizationFilter extends OncePerRequestFilter {
     private final JWTUtils jwtUtils;
 
     @Override
@@ -29,7 +31,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
         UsernamePasswordAuthenticationToken token = getToken(header);
 
-        //store currently authenticated user info
         SecurityContextHolder.getContext().setAuthentication(token);
         filterChain.doFilter(request, response);
     }

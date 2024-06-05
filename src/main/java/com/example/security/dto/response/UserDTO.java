@@ -1,4 +1,4 @@
-package com.example.security.model;
+package com.example.security.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
-    private Long id;
     private String email;
 }

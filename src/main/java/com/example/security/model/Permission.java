@@ -18,6 +18,6 @@ public class Permission {
     @Column(unique=true)
     private String permissionName;
 
-    @OneToMany(mappedBy = "permission")
-    private List<UserFeaturePermission> userFeaturePermissionList;
+    @ManyToMany(mappedBy = "permissions", fetch = FetchType.EAGER)
+    private List<Role> roles;
 }

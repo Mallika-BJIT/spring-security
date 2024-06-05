@@ -25,17 +25,20 @@ public class User implements UserDetails {
     private String email;
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private List<UserFeaturePermission> userFeaturePermissions;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if (!ObjectUtils.isEmpty(userFeaturePermissions)) {
-            for (UserFeaturePermission permission : userFeaturePermissions)
-                authorities.add(new SimpleGrantedAuthority("ROLE_" + permission.getFeature().getFeatureName()
-                        + permission.getPermission().getPermissionName()));
+        if (!ObjectUtils.isEmpty(roles)) {
+            for (Role role : roles)
+                authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
         }
         return authorities;
     }

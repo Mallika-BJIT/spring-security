@@ -1,4 +1,4 @@
-package com.example.security.model;
+package com.example.security.dto.request;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
